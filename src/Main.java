@@ -6,52 +6,43 @@ public class Main {
         // использую BYTE ибо точно знаю, что значение 0 или 1
         byte clientOS = 0;  // iOS is better
         System.out.println("// Задание 1");
-        switch (clientOS) {
-            case 0:
-                System.out.println("Установите версию приложения для iOS по ссылке");
-                break;
-            case 1:
-                System.out.println("Установите версию приложения для Android по ссылк");
-                break;
+           // second variant, but first was better
+           if (clientOS ==0) {
+               System.out.println("Установите версию приложения для iOS по ссылке");
+           }
+        if (clientOS ==1) {
+            System.out.println("Установите версию приложения для Android по ссылке");
         }
+
         // Задание 2 = Задание 1 + проверить год
         // byte clientOS = 0; - объявлено ранее
-        clientOS = 1; // инициализация
+        clientOS = 0; // инициализация
         int clientDeviceYear = 2015;
         int oldYear = 2015;
         boolean isYearSoOld = clientDeviceYear < oldYear;
         System.out.println("// Задание 2");
-        switch (clientOS) {
-            case 0:
-                if (isYearSoOld) {
-                    System.out.println("Установите облегченную версию приложения для iOS по ссылке");
-                } else {
-                    System.out.println("Установите версию приложения для iOS по ссылке");
-                }
-                break;
-            case 1:
-                if (isYearSoOld) {
-                    System.out.println("Установите облегченную версию приложения для Android по ссылке");
-                } else {
-                    System.out.println("Установите версию приложения для Android по ссылке");
-                }
-                break;
+        // old iOS
+        if (clientOS ==0 && isYearSoOld) {
+            System.out.println("Установите облегченную версию приложения для iOS по ссылке");
         }
+        // old Android
+        if (clientOS ==1 && isYearSoOld) {
+            System.out.println("Установите облегченную версию приложения для Android  по ссылке");
+        }
+        // new iOS
+        if (clientOS ==0 && !isYearSoOld) {
+            System.out.println("Установите  версию приложения для iOS по ссылке");
+        }
+        // new Android
+        if (clientOS ==1 && !isYearSoOld) {
+            System.out.println("Установите версию приложения для Android по ссылке");
+        }
+
         // Задание 3
         System.out.println("// Задание 3");
-        int year = 3020;
-        int valueMod; //Оператор деления по модулю
-        boolean isLeapYear = false;
-        // если ни один if  не отработает - значение isLeapYear не изменится!
-        if (year % 400 == 0) {
-            isLeapYear = true;
-        } else if (year % 100 == 0) {
-            isLeapYear = false;
-        } else if (year % 4 == 0) {
-            isLeapYear = true;
-        }
-        if (isLeapYear == true) {
-            System.out.println(year + "год является високосным");
+        int year = 2204;
+        if (year % 400 == 0 || year % 4 == 0 && year % 100 != 0) {
+            System.out.println(year + " год является високосным");
         } else {
             System.out.println(year + " год не  является високосным");
         }
@@ -76,40 +67,24 @@ public class Main {
         int monthNumber = 10;
         switch (monthNumber) {
             case 1:
-                System.out.println("Январь - зима");
-                break;
             case 2:
-                System.out.println("Февраль - зима");
+            case 12:
+                System.out.println("Время года - зима");
                 break;
             case 3:
-                System.out.println("Март - весна");
-                break;
             case 4:
-                System.out.println("Апрель - весна");
-                break;
             case 5:
-                System.out.println("Май -  весна");
+                System.out.println("Время года - весна");
                 break;
             case 6:
-                System.out.println("Июнь - лето");
-                break;
             case 7:
-                System.out.println("Июль - лето");
-                break;
             case 8:
-                System.out.println("Август - лето");
+                System.out.println("Время года - лето");
                 break;
             case 9:
-                System.out.println("Сентябрь -осень");
-                break;
             case 10:
-                System.out.println("Октябрь -осень");
-                break;
             case 11:
-                System.out.println("Ноябрь -осень");
-                break;
-            case 12:
-                System.out.println("Декабрь - зима");
+                System.out.println("Время года -осень");
                 break;
             default:
                 System.out.println("Период указан некорректно");
@@ -126,10 +101,7 @@ public class Main {
             koefCalc = 3f;
         }
         // check salary
-        if (salary < 50_000) {
-            // koefCalc is the same
-        }
-        else if (salary <= 80_000) {
+        if (salary >= 50_000 && salary <= 80_000) {
             koefCalc = koefCalc * 1.2f;
         } else  {
             koefCalc = koefCalc * 1.5f;
@@ -142,7 +114,7 @@ public class Main {
         int ageClient = 25;
         int salaryClient = 60_000;
         float wantedSum = 330_000f;
-        float maxPayment = salaryClient * 50.00f / 100.00f;
+        float maxPayment = salaryClient * 0.5f;
 
         float rateBase = 10f;
         float calcRate;
@@ -157,8 +129,8 @@ public class Main {
         if (salaryClient  > 80_000) {
             rateBase = rateBase - 0.7f;
         }
-
-        float wantedSumCalc =  wantedSum / 100 * (100 + rateBase);
+        rateBase = 1 + rateBase / 100;
+        float wantedSumCalc =  wantedSum  * rateBase;
         float monthPayment  =  wantedSumCalc / 12;
         System.out.println("Максимальный платеж при ЗП " + salaryClient + " равен " + maxPayment + " рублей");
         System.out.println("Платеж по кредиту равен " + monthPayment);
